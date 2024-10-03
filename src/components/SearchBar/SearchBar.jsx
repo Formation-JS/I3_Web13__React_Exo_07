@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 const validationSchema = z.object({
     valueSearch: z.string()
                   .min(1, { message: 'Minimum une lettre :o' })
+                  .regex(/^(?!.*[0-9_])[\w\s\-]+$/i, 'Nom incorrect')
                   .trim()
 });
 
@@ -32,6 +33,7 @@ const SearchBar = ({
             { errors.valueSearch && (
                 <span>{errors.valueSearch.message}</span>
             )}
+            <br />
             <button type="submit">Rechercher</button>
         </form>
     );
