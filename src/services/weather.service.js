@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const WEATHER_ICON_URL = `https://openweathermap.org/img/wn/__icon__@4x.png` 
+export const WEATHER_ICON_URL = `https://openweathermap.org/img/wn/__icon__@2x.png` 
 
 export async function getWeatherFromCity(city) {
 
