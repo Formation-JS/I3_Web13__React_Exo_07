@@ -1,0 +1,30 @@
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  height: 5rem;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 0.4ch solid aquamarine;
+  width: 100vw;
+  background-color: blueviolet;
+
+  img {
+    height: 100%;
+  }
+  span {
+    align-self: center;
+    font-size: 1.5em;
+    color: aquamarine;
+    font-weight: bold;
+  }
+}
+
+main {
+  flex-grow: 1;
+  margin: 1ch 2em;
+}
+
