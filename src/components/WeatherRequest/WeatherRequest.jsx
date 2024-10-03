@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getWeatherFromCity } from '../../services/weather.service';
 import Spinner from '../Spinner/Spinner';
+import { formatToCelsius } from '../../tools/formatter.tool';
 
 const WeatherRequest = ({ city }) => {
 
@@ -48,10 +49,11 @@ const WeatherRequest = ({ city }) => {
 };
 
 const WeatherResult = ({ city, country, temp, tempFeels, description, icon }) => {
+
     return (
         <div>
             <p>{city} ({country})</p>
-            <p>Temperature : {temp}°c ({tempFeels}°c)</p>
+            <p>Temperature : {formatToCelsius(temp)} ({formatToCelsius(tempFeels)})</p>
             <p>Description : {description}</p>
             <img src={icon} alt={'Icon pour ' + description} />
         </div>
