@@ -1,0 +1,33 @@
+.container {
+    border-radius: 1em;
+    box-shadow: aquamarine 1ch 1ch 1ch;
+    background-color: snow;
+    padding: 1ch;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    button {
+        background-color: blueviolet;
+    }
+
+    margin-bottom: 2em;
+}
+
+.result {
+    display: grid;
+    grid-template-areas: 
+        "a d"
+        "b d"
+        "c d";
+
+    p {
+        margin: 0;
+    }
+
+    img {
+        grid-area: d;
+        height: 5em;
+    }
+}

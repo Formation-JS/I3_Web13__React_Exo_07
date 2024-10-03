@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getWeatherFromCity } from '../../services/weather.service';
 import Spinner from '../Spinner/Spinner';
 import { formatToCelsius } from '../../tools/formatter.tool';
+import style from './WeatherRequest.module.css';
 
 const WeatherRequest = ({ 
     city,
@@ -48,10 +49,10 @@ const WeatherRequest = ({
         {result.isLoading ? (
             <Spinner />
         ) : result.data ? (
-            <>
+            <div className={style.container}>
                 <WeatherResult {...result.data} />
                 { btnAction && <button type="button" onClick={handleClick}>{btnAction}</button> }
-            </>
+            </div>
         ) : (
             <WeatherError message={result.error} />
         )}
@@ -62,7 +63,7 @@ const WeatherRequest = ({
 const WeatherResult = ({ city, country, temp, tempFeels, description, icon }) => {
 
     return (
-        <div>
+        <div className={style.result}>
             <p>{city} ({country})</p>
             <p>Temperature : {formatToCelsius(temp)} ({formatToCelsius(tempFeels)})</p>
             <p>Description : {description}</p>
