@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 const validationSchema = z.object({
     valueSearch: z.string()
                   .min(1, { message: 'Minimum une lettre :o' })
-                  .regex(/^(?!.*[0-9_])[\w\s\-]+$/i, 'Nom incorrect')
+                  .regex(/^(?!.*[0-9_])[\p{L}\s\-]+$/gui, 'Nom incorrect')
                   .trim()
 });
 
