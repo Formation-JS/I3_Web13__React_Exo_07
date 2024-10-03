@@ -5,13 +5,27 @@ import WeatherRequest from '../../components/WeatherRequest/WeatherRequest';
 const WeatherApp = () => {
 
     const [currentCity, setCurrentCity] = useState(null);
+    const [savedCities, setSavedCities] = useState([]);
 
     const handleCitySearch = (city) => {
         setCurrentCity(city);
     }
 
     const handleSaveWeather = (cityToSave) => {
-        console.log("Ca marche ?", cityToSave);
+        if(!savedCities.includes(cityToSave)) {
+            // Ajout en premier
+            setSavedCities(cities => [cityToSave, ...cities])
+
+            // Ajout en dernier
+            // setSavedCities(cities => [...cities, cityToSave]);
+
+            // Version avec la méthode "concat"
+            // setSavedCities(cities => cities.concat(cityToSave));
+        }
+    }
+
+    const handleDeleteWeather = (cityToDelete) => {
+        setSavedCities(cities => cities.filter(city => city !== cityToDelete))
     }
 
     return (
@@ -26,6 +40,14 @@ const WeatherApp = () => {
                     btnAction='💚'
                     onAction={handleSaveWeather}/>
             )}
+
+            <h2>Les villes favorites</h2>
+            {savedCities.map((city) => (
+                <WeatherRequest key={city}
+                    city={city}
+                    btnAction='💀'
+                    onAction={handleDeleteWeather} />
+            ))}
         </>
     );
 };
