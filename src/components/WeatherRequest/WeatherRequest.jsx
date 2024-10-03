@@ -3,7 +3,11 @@ import { getWeatherFromCity } from '../../services/weather.service';
 import Spinner from '../Spinner/Spinner';
 import { formatToCelsius } from '../../tools/formatter.tool';
 
-const WeatherRequest = ({ city }) => {
+const WeatherRequest = ({ 
+    city,
+    btnAction = undefined,
+    onAction = () => {},
+}) => {
 
     const [result, setResult] = useState({
         isLoading: false,
@@ -35,12 +39,19 @@ const WeatherRequest = ({ city }) => {
             });
     }, [city]);
 
+    const handleClick = () => {
+        onAction(result.data.city);
+    }
+
     return (
         <>
         {result.isLoading ? (
             <Spinner />
         ) : result.data ? (
-            <WeatherResult {...result.data} />
+            <>
+                <WeatherResult {...result.data} />
+                { btnAction && <button type="button" onClick={handleClick}>{btnAction}</button> }
+            </>
         ) : (
             <WeatherError message={result.error} />
         )}

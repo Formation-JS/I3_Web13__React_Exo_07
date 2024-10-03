@@ -10,6 +10,10 @@ const WeatherApp = () => {
         setCurrentCity(city);
     }
 
+    const handleSaveWeather = (cityToSave) => {
+        console.log("Ca marche ?", cityToSave);
+    }
+
     return (
         <>
             <h1>Application de météo</h1>
@@ -18,7 +22,9 @@ const WeatherApp = () => {
 
             <h2>Resultat</h2>
             {currentCity && (
-                <WeatherRequest city={currentCity} />
+                <WeatherRequest city={currentCity} 
+                    btnAction='💚'
+                    onAction={handleSaveWeather}/>
             )}
         </>
     );
