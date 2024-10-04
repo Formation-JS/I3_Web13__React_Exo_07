@@ -3,6 +3,7 @@ import { getWeatherFromCity } from '../../services/weather.service';
 import Spinner from '../Spinner/Spinner';
 import { formatToCelsius } from '../../tools/formatter.tool';
 import style from './WeatherRequest.module.css';
+import useSWR from 'swr';
 
 const WeatherRequest = ({ 
     city,
@@ -10,51 +11,23 @@ const WeatherRequest = ({
     onAction = () => {},
 }) => {
 
-    const [result, setResult] = useState({
-        isLoading: false,
-        data: null,
-        error: null,
-    });
-
-    useEffect(() => {
-        setResult({
-            isLoading: true,
-            data: null,
-            error: null
-        });
-
-        getWeatherFromCity(city)
-            .then(data => {
-                setResult({
-                    isLoading: false,
-                    data,
-                    error: null
-                });
-            })
-            .catch(error => {
-                setResult({
-                    isLoading: false,
-                    data: null,
-                    error: error?.message ?? '¯\_(ツ)_/¯'
-                });
-            });
-    }, [city]);
+    const { isLoading, data, error } = useSWR(city, getWeatherFromCity);
 
     const handleClick = () => {
-        onAction(result.data.city);
+        onAction(data.city);
     }
 
     return (
         <>
-        {result.isLoading ? (
+        {isLoading ? (
             <Spinner />
-        ) : result.data ? (
+        ) : data ? (
             <div className={style.container}>
-                <WeatherResult {...result.data} />
+                <WeatherResult {...data} />
                 { btnAction && <button type="button" onClick={handleClick}>{btnAction}</button> }
             </div>
         ) : (
-            <WeatherError message={result.error} />
+            <WeatherError message={error?.message ?? '¯\_(ツ)_/¯'} />
         )}
         </>
     );
